@@ -10,11 +10,11 @@ import (
 )
 
 type RelacionOrganizaciones struct {
-	Id                         int                         `orm:"column(id);pk"`
+	Id                         int                         `orm:"column(id);pk;auto"`
 	OrganizacionPadre          int                         `orm:"column(organizacion_padre)"`
 	OrganizacionHija           int                         `orm:"column(organizacion_hija)"`
 	TipoRelacionOrganizaciones *TipoRelacionOrganizaciones `orm:"column(tipo_relacion_organizaciones);rel(fk)"`
-	
+
 }
 
 func (t *RelacionOrganizaciones) TableName() string {
