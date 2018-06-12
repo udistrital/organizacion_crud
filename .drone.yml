@@ -16,7 +16,7 @@ pipeline:
 
     # build and push docker image to docker hub
   publish:
-    image: plugins/docker:17.05
+    image: plugins/docker
     repo: udistrital/organizacion_crud
     tag:
       - latest
