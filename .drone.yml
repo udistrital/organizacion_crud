@@ -16,7 +16,7 @@ pipeline:
 
     # build and push docker image to docker hub
   publish:
-    image: plugins/docker
+    image: plugins/docker:17.05
     repo: oas0/ente_crud
     tag:
       - $${COMMIT:0:7}
