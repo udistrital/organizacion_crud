@@ -14,18 +14,6 @@ pipeline:
       branch: master
       event: push
 
-  # prepare imagedef.json and app.zip for deployment
-  sed:
-    image: alpine
-    commands:
-      - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
-      - apk -U add zip
-      - zip app.zip imagedef.json
-    when:
-      branch: master
-      event: push
-
-
     # build and push docker image to docker hub
   publish:
     image: plugins/docker
