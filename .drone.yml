@@ -21,8 +21,6 @@ pipeline:
     tag:
       - $${COMMIT:0:7}
       - latest
-    username: $$DRONE_DOCKERID_LOGIN
-    password: $$DRONE_DOCKERID_PASSWORD
     email: computoud@googlegroups.com
     when:
       branch: master
