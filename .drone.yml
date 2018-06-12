@@ -17,7 +17,7 @@ pipeline:
     # build and push docker image to docker hub
   publish:
     image: plugins/docker
-    repo: udistrital/organizacion_crud
+    repo: docker.io/oas0
     tag:
       - latest
     email: computoud@googlegroups.com
