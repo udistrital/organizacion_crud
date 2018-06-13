@@ -11,7 +11,7 @@ pipeline:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
-      branch: develop
+      branch: master
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -22,7 +22,7 @@ pipeline:
       - apk -U add zip
       - zip app.zip imagedef.json
     when:
-      branch: develop
+      branch: master
       event: push
       
   # build and push docker image to docker hub
@@ -30,7 +30,6 @@ pipeline:
     image: plugins/docker
     repo: oas0/organizacion_crud
     secrets: [ docker_username, docker_password ]
-    debug: true
     tag:
       - $${COMMIT:0:7}
       - latest
