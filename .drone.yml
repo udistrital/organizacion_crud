@@ -31,7 +31,7 @@ pipeline:
     repo: oas0/organizacion_crud
     secrets: [ docker_username, docker_password ]
     tag:
-      - ${COMMIT:0:7}
+      - $${DRONE_COMMIT:0:7}
       - latest
     when:
       branch: master
