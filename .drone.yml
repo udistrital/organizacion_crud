@@ -29,6 +29,7 @@ pipeline:
   publish_dockerhub:
     repo: oas0/organizacion_crud
     secrets: [ docker_username, docker_password ]
+    debug=true
     tag:
       - $${COMMIT:0:7}
       - latest
