@@ -48,7 +48,7 @@ pipeline:
     access_key: $$DRONE_AWS_ACCESS_KEY_ID
     secret_key: $$DRONE_AWS_SECRET_ACCESS_KEY
     source: app.zip
-    target: /apps/organizacion_crud-$$BRANCH.zip
+    target: /apps/organizacion_crud-$BRANCH.zip
     when:
       branch: [master, develop]
       event: push      
