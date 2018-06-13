@@ -11,16 +11,27 @@ pipeline:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
-      branch: master
+      branch: develop
       event: push
 
-    # build and push docker image to docker hub
-  publish:
-    image: plugins/docker
-    repo: docker.io/oas0
+  # prepare imagedef.json and app.zip for deployment
+  sed:
+    image: alpine
+    commands:
+      - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
+      - apk -U add zip
+      - zip app.zip imagedef.json
+    when:
+      branch: develop
+      event: push
+      
+  # build and push docker image to docker hub
+  publish_dockerhub:
+    repo: oas0/organizacion_crud
+    secrets: [ docker_username, docker_password ]
     tag:
+      - $${COMMIT:0:7}
       - latest
-    email: computoud@googlegroups.com
     when:
       branch: master
       event: push
