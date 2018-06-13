@@ -27,6 +27,7 @@ pipeline:
       
   # build and push docker image to docker hub
   publish_dockerhub:
+    image: plugins/docker
     repo: oas0/organizacion_crud
     secrets: [ docker_username, docker_password ]
     debug: true
