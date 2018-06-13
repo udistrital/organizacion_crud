@@ -17,7 +17,6 @@ pipeline:
   # prepare imagedef.json and app.zip for deployment
   sed:
     image: alpine
-    debug: true
     commands:
       - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
       - apk -U add zip
