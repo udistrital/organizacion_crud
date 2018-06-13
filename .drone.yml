@@ -29,9 +29,10 @@ pipeline:
   publish_dockerhub:
     image: plugins/docker
     repo: oas0/organizacion_crud
+    debug: true
     secrets: [ docker_username, docker_password ]
     tag:
-      - $${COMMIT:0:7}
+      - ${DRONE_COMMIT}
       - latest
     when:
       branch: develop
