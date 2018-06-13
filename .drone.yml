@@ -32,7 +32,7 @@ pipeline:
     debug: true
     secrets: [ docker_username, docker_password ]
     tag:
-      - $$commit
+      - ${DRONE_COMMIT}
       - latest
     when:
       branch: master
