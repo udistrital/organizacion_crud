@@ -32,7 +32,7 @@ pipeline:
     debug: true
     secrets: [ docker_username, docker_password ]
     tag:
-      - $$COMMIT
+      - $$commit
       - latest
     when:
       branch: master
