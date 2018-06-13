@@ -39,3 +39,15 @@ pipeline:
 
       branch: [master, develop]
       event: push
+      
+  # upload app.zip to s3 bucket for CodePipline
+  publish_s3:
+    image: plugins/s3
+    region: "us-east-1"
+    bucket: "drone-helper-bucket"
+    secrets: [ drone_aws_access_key_id, drone_aws_secret_access_key ]
+    source: app.zip
+    target: /apps/organizacion_crud-${DRONE_BRANCH}.zip
+    when:
+      branch: [master, develop]
+      event: push      
