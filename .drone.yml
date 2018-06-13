@@ -45,8 +45,7 @@ pipeline:
     image: plugins/s3
     region: "us-east-1"
     bucket: "drone-helper-bucket"
-    access_key: $$DRONE_AWS_ACCESS_KEY_ID
-    secret_key: $$DRONE_AWS_SECRET_ACCESS_KEY
+    secrets: [ drone_aws_access_key_id, drone_aws_secret_access_key ]
     source: app.zip
     target: /apps/organizacion_crud-$BRANCH.zip
     when:
