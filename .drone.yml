@@ -50,5 +50,5 @@ pipeline:
     source: app.zip
     target: /apps/organizacion_crud-$$BRANCH.zip
     when:
-      branch: develop
+      branch: [master, develop]
       event: push      
