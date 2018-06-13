@@ -11,7 +11,8 @@ pipeline:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
-      branch: develop
+
+      branch: [master, develop]
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -22,7 +23,8 @@ pipeline:
       - apk -U add zip
       - zip app.zip imagedef.json
     when:
-      branch: develop
+
+      branch: [master, develop]
       event: push
       
   # build and push docker image to docker hub
@@ -34,5 +36,6 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-      branch: develop
+
+      branch: [master, develop]
       event: push
