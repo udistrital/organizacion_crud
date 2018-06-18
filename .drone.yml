@@ -60,7 +60,7 @@ pipeline:
     format: markdown
     message: >
       {{#success build.status}}
-        `{{repo.owner}}/{{repo.name}}` [SUCCESS] `{{commit.branch}}`@{{truncate commit.sha 7}}
+        `{{repo.owner}}/{{repo.name}}` [SUCCESS] {{build.link}} `{{commit.branch}}`@{{truncate commit.sha 7}}
       {{else}}
         `{{repo.owner}}/{{repo.name}}` [FAILURE] `{{commit.branch}}`@{{truncate commit.sha 7}}
       {{/success}}
