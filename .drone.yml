@@ -59,7 +59,7 @@ pipeline:
     to: 239418167
     message: >
       {{#success build.status}}
-      build {{repo.name}} Good job.
+      build {{repo.name}}-{{commit.branch}} Good job.
       {{else}}
-      build {{build.number}} failed. Fix me please.
+      build {{build.number}}-{{commit.branch}} failed. Fix me please.
       {{/success}}
