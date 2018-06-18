@@ -54,8 +54,11 @@ pipeline:
       
   #Notify results to telegram    
   notify_telegram:
-    image: appleboy/drone-telegram
-    token: 607984794:AAEvTctjGAwR4A3yvaY2aAlZSyBrTuHnOrE
+    image: appleboy/drone-telegram    
+    secrets: [token_bot]
+    commands:
+      - echo ${TOKEN_BOT}
+    token: ${TOKEN_BOT}
     to: 239418167
     format: markdown
     message: >
