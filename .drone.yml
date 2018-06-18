@@ -6,7 +6,7 @@ pipeline:
 
   # build and test the go program
   go:
-    image: golang:1.9
+    image: golang:1.99
     commands:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
@@ -49,7 +49,7 @@ pipeline:
     source: app.zip    
     target: /apps/organizacion_crud-${DRONE_BRANCH}.zip
     when:
-      branch: branch: [master, develop]
+      branch: [master, develop]
       event: push
       
   #Notify results to telegram    
