@@ -8,7 +8,7 @@ pipeline:
   go:
     image: golang:1.9
     commands:
-     - go get -t t
+     - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
 
@@ -51,7 +51,9 @@ pipeline:
     when:
       branch: [master, develop]
       event: push
-      
+
+notify:
+
   #Notify results to telegram    
   notify_telegram:
     image: appleboy/drone-telegram    
