@@ -11,7 +11,6 @@ pipeline:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
-
       branch: [master, develop]
       event: push
 
@@ -23,7 +22,6 @@ pipeline:
       - apk -U add zip
       - zip app.zip imagedef.json
     when:
-
       branch: [master, develop]
       event: push
       
@@ -36,18 +34,33 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-
       branch: [master, develop]
       event: push
       
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
     image: plugins/s3
+    secrets: [ aws_access_key_id, aws_secret_access_key ]
     region: "us-east-1"
     bucket: "drone-helper-bucket"
-    secrets: [ drone_aws_access_key_id, drone_aws_secret_access_key ]
-    source: app.zip
+    source: app.zip    
     target: /apps/organizacion_crud-${DRONE_BRANCH}.zip
     when:
       branch: [master, develop]
-      event: push      
+      event: push
+
+  #Notify results to telegram    
+  notify_telegram:
+    image: appleboy/drone-telegram    
+    secrets: [ telegram_token, telegram_to ]
+    format: html
+    message: >
+      {{#success build.status}}
+        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">SUCCESS</a> 
+        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+      {{else}}
+        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
+        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+      {{/success}}
+    when:
+      status: [success, failure]      
