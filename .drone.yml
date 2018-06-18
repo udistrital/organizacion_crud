@@ -67,3 +67,5 @@ notify:
         <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
         <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
       {{/success}}
+    branch: [master, develop]
+    event: push
