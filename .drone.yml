@@ -43,6 +43,7 @@ pipeline:
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
     image: plugins/s3
+    secrets: [ access_key, secret_key ]
     region: "us-east-1"
     bucket: "drone-helper-bucket"
     source: app.zip
