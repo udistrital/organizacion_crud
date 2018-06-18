@@ -9,7 +9,6 @@ pipeline:
     image: golang:1.9
     commands:
      - go get -t
-     - aws s3 ls
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
       branch: [master, develop]
