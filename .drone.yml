@@ -57,9 +57,10 @@ pipeline:
     image: appleboy/drone-telegram
     token: 607984794:AAEvTctjGAwR4A3yvaY2aAlZSyBrTuHnOrE
     to: 239418167
+    format: markdown
     message: >
       {{#success build.status}}
-      build {{repo.name}}-{{commit.branch}} Good job.
+      build uppercase{{repo.name}}-{{commit.branch}} Good job.
       {{else}}
       build {{build.number}}-{{commit.branch}} failed. Fix me please.
       {{/success}}
