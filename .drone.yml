@@ -37,7 +37,7 @@ pipeline:
       - latest
     when:
 
-      branch: [master, develop]
+      branch: [no_make]
       event: push
       
   # upload app.zip to s3 bucket for CodePipline
@@ -59,7 +59,7 @@ pipeline:
     to: 239418167
     message: >
       {{#success build.status}}
-      repo: {{repo.full_name}} build: {{build.number}} status {{uppercase build.status}}, {{build.branch}}, @{{truncate build.commit 7}}, Good job.
+      repo: {{repo.full_name}} build: {{build.number}} status {{uppercase build.status}}, {{build.branch}}, {{truncate build.commit 7}}, Good job.
       {{else}}
       build {{build.number}} failed. Fix me please.
       {{/success}}
