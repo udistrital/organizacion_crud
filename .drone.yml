@@ -52,7 +52,7 @@ pipeline:
       branch: [master, develop]
       event: push
       
-      
+  #Notify results to telegram    
   telegram:
     image: appleboy/drone-telegram
     token: 607984794:AAEvTctjGAwR4A3yvaY2aAlZSyBrTuHnOrE
