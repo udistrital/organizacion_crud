@@ -56,6 +56,8 @@ pipeline:
   notify_telegram:
     image: appleboy/drone-telegram    
     secrets: [ telegram_token, telegram_to ]
+    commands:
+      - echo ${{repo.owner}}
     format: markdown
     message: >
       {{#success build.status}}
