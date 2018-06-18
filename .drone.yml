@@ -12,7 +12,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
 
-      branch: [master, develop]
+      branch: [no_make]
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -24,7 +24,7 @@ pipeline:
       - zip app.zip imagedef.json
     when:
 
-      branch: [master, develop]
+      branch: [no_make]
       event: push
       
   # build and push docker image to docker hub
@@ -49,7 +49,7 @@ pipeline:
     source: app.zip    
     target: /apps/organizacion_crud-${DRONE_BRANCH}.zip
     when:
-      branch: [master, develop]
+      branch: [no_make]
       event: push
       
   #Notify results to telegram    
@@ -59,7 +59,7 @@ pipeline:
     format: markdown
     message: >
       {{#success build.status}}
-        `{{repo.name/crud/sufijo}}`
+        `{{repo.name:_:-}}`
       {{else}}
         `{{repo.owner}}/"{{repo.name}}"` [FAILURE]({{build.link}}) `{{commit.branch}}`@{{truncate commit.sha 7}}
       {{/success}}
