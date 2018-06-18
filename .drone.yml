@@ -47,6 +47,7 @@ pipeline:
     region: "us-east-1"
     bucket: "drone-helper-bucket"
     source: app.zip
+    
     target: /apps/organizacion_crud-${DRONE_BRANCH}.zip
     when:
       branch: [master, develop]
