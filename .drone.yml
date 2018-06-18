@@ -59,7 +59,7 @@ pipeline:
     format: markdown
     message: >
       {{#success build.status}}
-        valor `{{repo.name/crud/lugar}}`
+        valor `{repo.name//lugar}`
       {{else}}
         `{{repo.owner}}/"{{repo.name}}"` [FAILURE]({{build.link}}) `{{commit.branch}}`@{{truncate commit.sha 7}}
       {{/success}}
