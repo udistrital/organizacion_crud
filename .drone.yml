@@ -53,7 +53,7 @@ pipeline:
       event: push
       
   #Notify results to telegram    
-  telegram:
+  notify_telegram:
     image: appleboy/drone-telegram
     token: 607984794:AAEvTctjGAwR4A3yvaY2aAlZSyBrTuHnOrE
     to: 239418167
