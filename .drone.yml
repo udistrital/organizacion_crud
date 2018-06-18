@@ -55,11 +55,7 @@ pipeline:
   #Notify results to telegram    
   notify_telegram:
     image: appleboy/drone-telegram    
-    secrets: [token_bot]
-    commands:
-      - echo ${TOKEN_BOT}
-    token: ${TOKEN_BOT}
-    to: 239418167
+    secrets: [ telegram_token, telegram_to ]
     format: markdown
     message: >
       {{#success build.status}}
