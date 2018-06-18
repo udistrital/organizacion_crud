@@ -60,7 +60,7 @@ pipeline:
     format: markdown
     message: >
       {{#success build.status}}
-     `{{repo.owner}}/{{uppercase repo.name}}` SUCCESS  Good job.
+     `{{repo.owner}}``/``{{uppercase repo.name}}` SUCCESS  Good job.
       {{else}}
       build {{build.number}}-{{commit.branch}} failed. Fix me please.
       {{/success}}
