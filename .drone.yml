@@ -63,4 +63,4 @@ pipeline:
         <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
       {{/success}}
     when:
-      status: [success, failure]      
+      status: [success, failure]
