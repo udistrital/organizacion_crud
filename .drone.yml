@@ -10,6 +10,7 @@ pipeline:
     commands:
      - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
+     - aws s3 ls
     when:
       branch: [master, develop]
       event: push
