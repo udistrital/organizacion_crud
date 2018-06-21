@@ -45,7 +45,7 @@ pipeline:
     secrets: [ aws_access_key_id, aws_secret_access_key ]
     region: "us-east-1"
     bucket: "drone-helper-bucket"
-    source: app.zip    
+    source: organizacion_crud-${DRONE_BRANCH}.zip    
     target: /apps
     when:
       branch: [master, develop]
