@@ -29,8 +29,17 @@ func init() {
 // last inserted Id on success.
 func AddOrganizacion(m *Organizacion) (id int64, err error) {
 	o := orm.NewOrm()
-	id, err = o.Insert(m)
-	return
+        o.Begin()
+        var en = &Ente{0, &TipoEnte{Id: 2}} //id del tipo ente para organizacion
+        iden, err := o.Insert(en)
+        if err == nil {
+                m.Ente = int(iden)
+                id, err = o.Insert(m)
+                o.Commit()
+                return
+        }
+        o.Rollback()
+        return
 }
 
 // GetOrganizacionById retrieves Organizacion by Id. Returns error if
@@ -143,11 +152,15 @@ func DeleteOrganizacion(id int) (err error) {
 	o := orm.NewOrm()
 	v := Organizacion{Id: id}
 	// ascertain id exists in the database
+	o.Begin()
 	if err = o.Read(&v); err == nil {
-		var num int64
-		if num, err = o.Delete(&Organizacion{Id: id}); err == nil {
-			fmt.Println("Number of records deleted in database:", num)
-		}
+		if _, err = o.Delete(&Ente{Id: v.Ente}); err == nil {
+			if _, err = o.Delete(&Organizacion{Id: id}); err == nil {
+				o.Commit()
+				return
+			}
+		}		
 	}
+	o.Rollback()
 	return
 }
