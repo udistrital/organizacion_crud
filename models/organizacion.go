@@ -14,7 +14,6 @@ type Organizacion struct {
 	Nombre           string            `orm:"column(nombre)"`
 	Ente             int               `orm:"column(ente)"`
 	TipoOrganizacion *TipoOrganizacion `orm:"column(tipo_organizacion);rel(fk)"`
-
 }
 
 func (t *Organizacion) TableName() string {
@@ -29,17 +28,19 @@ func init() {
 // last inserted Id on success.
 func AddOrganizacion(m *Organizacion) (id int64, err error) {
 	o := orm.NewOrm()
-        o.Begin()
-        var en = &Ente{0, &TipoEnte{Id: 2}} //id del tipo ente para organizacion
-        iden, err := o.Insert(en)
-        if err == nil {
-                m.Ente = int(iden)
-                id, err = o.Insert(m)
-                o.Commit()
-                return
-        }
-        o.Rollback()
-        return
+	o.Begin()
+	var en = &Ente{0, &TipoEnte{Id: 2}} //id del tipo ente para organizacion
+	iden, err := o.Insert(en)
+	if err == nil {
+		m.Ente = int(iden)
+		id, err = o.Insert(m)
+		if err == nil {
+			o.Commit()
+			return
+		}
+	}
+	o.Rollback()
+	return
 }
 
 // GetOrganizacionById retrieves Organizacion by Id. Returns error if
@@ -159,7 +160,7 @@ func DeleteOrganizacion(id int) (err error) {
 				o.Commit()
 				return
 			}
-		}		
+		}
 	}
 	o.Rollback()
 	return
