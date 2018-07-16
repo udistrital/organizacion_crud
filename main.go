@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "github.com/udistrital/organizacion_crud/routers"
+	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -33,5 +34,6 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	apistatus.Init()
 	beego.Run()
 }
