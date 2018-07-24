@@ -2,7 +2,7 @@ workspace:
   base: /go
   path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
   when:
-    branch: [master, develop]
+    branch: [master, develop, concept]
     event: push
 
 pipeline:
@@ -15,7 +15,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
      
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -39,8 +39,18 @@ pipeline:
       - ${DRONE_COMMIT:0:7}
       - latest
     when:
-      branch: [master, develop]
+      branch: [master, develop, concept]
       event: push
+      
+  deploy_concept:
+    ssh:
+      host: ${local_test_server}
+      port: ${local_test_port}
+      user: ${local_test_user}
+      commands:
+        - docker stop ${DRONE_REPO##udistrital/}
+        - docker rm ${DRONE_REPO##udistrital/}
+        - docker run --name ${DRONE_REPO##udistrital/} oas0/${DRONE_REPO##udistrital/}:${DRONE_COMMIT:0:7}
       
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
