@@ -17,4 +17,4 @@ Go version >= 1.8.
  ## Example:
 ORGANIZACION_HTTP_PORT=8095 ORGANIZACION_CRUD__PGUSER=postgres ORGANIZACION_CRUD__PGPASS=password ORGANIZACION_CRUD__PGURLS=localhost ORGANIZACION_CRUD__PGDB=local ORGANIZACION_CRUD__SCHEMA=core_new bee run
  ## Model DB
-![image](https://github.com/udistrital/organizacion_crud/blob/develop/modelo_organizacion_crud.png).
+![image](https://github.com/udistrital/organizacion_crud/blob/develop/modelo_organizacion_crud.PNG).
