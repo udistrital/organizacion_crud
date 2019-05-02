@@ -1,5 +1,5 @@
 kind: pipeline
-name: organizacion_descuentos_crud
+name: organizacion_crud
 
 workspace:
   base: /go
