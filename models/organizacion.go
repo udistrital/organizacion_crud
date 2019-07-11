@@ -5,15 +5,17 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type Organizacion struct {
-	Id               int               `orm:"column(id);pk;auto"`
-	Nombre           string            `orm:"column(nombre)"`
-	Ente             int               `orm:"column(ente)"`
-	TipoOrganizacion *TipoOrganizacion `orm:"column(tipo_organizacion);rel(fk)"`
+	Id                int               `orm:"column(id);pk;auto"`
+	Nombre            string            `orm:"column(nombre)"`
+	Ente              int               `orm:"column(ente)"`
+	TipoOrganizacion  *TipoOrganizacion `orm:"column(tipo_organizacion);rel(fk)"`
+	FechaModificacion string            `orm:"column(fecha_modificacion);null"`
 }
 
 func (t *Organizacion) TableName() string {
@@ -29,6 +31,9 @@ func init() {
 func AddOrganizacion(m *Organizacion) (id int64, err error) {
 	o := orm.NewOrm()
 	o.Begin()
+	var t time.Time
+	t = time.Now()
+	m.FechaModificacion = fmt.Sprintf("%s", t.UTC().Format(time.UnixDate))
 	var en = &Ente{0, &TipoEnte{Id: 2}} //id del tipo ente para organizacion
 	iden, err := o.Insert(en)
 	if err == nil {
@@ -137,6 +142,9 @@ func GetAllOrganizacion(query map[string]string, fields []string, sortby []strin
 func UpdateOrganizacionById(m *Organizacion) (err error) {
 	o := orm.NewOrm()
 	v := Organizacion{Id: m.Id}
+	var t time.Time
+	t = time.Now()
+	m.FechaModificacion = fmt.Sprintf("%s", t.UTC().Format(time.UnixDate))
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64

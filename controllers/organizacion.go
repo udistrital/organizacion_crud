@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"encoding/json"
-	"errors"
-	"github.com/planesticud/organizacion_crud/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/fatih/structs"
+	"github.com/planesticud/organizacion_crud/models"
+	"github.com/udistrital/utils_oas/formatdata"
 )
 
 // OrganizacionController operations for Organizacion
@@ -36,12 +37,19 @@ func (c *OrganizacionController) Post() {
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if _, err := models.AddOrganizacion(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = models.Alert{Type: "success", Code: "S_201", Body: v}
+			//c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			alertdb := structs.Map(err)
+			var code string
+			formatdata.FillStruct(alertdb["Code"], &code)
+			alert := models.Alert{Type: "error", Code: "E_" + code, Body: err.Error()}
+			c.Data["json"] = alert
+			//c.Data["json"] = err.Error()
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: err.Error()}
+		//c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
@@ -58,7 +66,8 @@ func (c *OrganizacionController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetOrganizacionById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: err.Error()}
+		//c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
 	}
@@ -110,7 +119,8 @@ func (c *OrganizacionController) GetAll() {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)
 			if len(kv) != 2 {
-				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				//c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: "Error: invalid query key/value pair"}
 				c.ServeJSON()
 				return
 			}
@@ -121,7 +131,8 @@ func (c *OrganizacionController) GetAll() {
 
 	l, err := models.GetAllOrganizacion(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: err.Error()}
+		//c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = l
 	}
@@ -142,12 +153,20 @@ func (c *OrganizacionController) Put() {
 	v := models.Organizacion{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateOrganizacionById(&v); err == nil {
-			c.Data["json"] = "OK"
+			//c.Data["json"] = "OK"
+			c.Ctx.Output.SetStatus(200)
+			c.Data["json"] = models.Alert{Type: "success", Code: "S_200", Body: v}
 		} else {
-			c.Data["json"] = err.Error()
+			alertdb := structs.Map(err)
+			var code string
+			formatdata.FillStruct(alertdb["Code"], &code)
+			alert := models.Alert{Type: "error", Code: "E_" + code, Body: err.Error()}
+			c.Data["json"] = alert
+			//c.Data["json"] = err.Error()
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: err.Error()}
+		//c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
@@ -163,9 +182,11 @@ func (c *OrganizacionController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteOrganizacion(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = models.Alert{Type: "success", Code: "S_200", Body: "OK"}
+		//c.Data["json"] = "OK"
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: err.Error()}
+		//c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
