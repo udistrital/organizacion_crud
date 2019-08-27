@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type RelacionOrganizaciones struct {
@@ -15,6 +15,7 @@ type RelacionOrganizaciones struct {
 	OrganizacionPadre          int                         `orm:"column(organizacion_padre)"`
 	OrganizacionHija           int                         `orm:"column(organizacion_hija)"`
 	TipoRelacionOrganizaciones *TipoRelacionOrganizaciones `orm:"column(tipo_relacion_organizaciones);rel(fk)"`
+	FechaCreacion              string                      `orm:"column(fecha_creacion);null"`
 	FechaModificacion          string                      `orm:"column(fecha_modificacion);null"`
 }
 
@@ -29,9 +30,8 @@ func init() {
 // AddRelacionOrganizaciones insert a new RelacionOrganizaciones into database and returns
 // last inserted Id on success.
 func AddRelacionOrganizaciones(m *RelacionOrganizaciones) (id int64, err error) {
-	var t time.Time
-	t = time.Now()
-	m.FechaModificacion = fmt.Sprintf("%s", t.UTC().Format(time.UnixDate))
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -131,9 +131,7 @@ func GetAllRelacionOrganizaciones(query map[string]string, fields []string, sort
 func UpdateRelacionOrganizacionesById(m *RelacionOrganizaciones) (err error) {
 	o := orm.NewOrm()
 	v := RelacionOrganizaciones{Id: m.Id}
-	var t time.Time
-	t = time.Now()
-	m.FechaModificacion = fmt.Sprintf("%s", t.UTC().Format(time.UnixDate))
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64

@@ -48,8 +48,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Organizacion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - organizacion
@@ -65,8 +65,8 @@ paths:
       responses:
         "201":
           description: '{int} models.Organizacion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /organizacion/{id}:
     get:
       tags:
@@ -84,8 +84,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Organizacion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - organizacion
@@ -108,8 +108,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Organizacion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - organizacion
@@ -124,8 +124,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /relacion_organizaciones/:
     get:
       tags:
@@ -163,8 +163,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionOrganizaciones'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - relacion_organizaciones
@@ -180,8 +180,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RelacionOrganizaciones'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /relacion_organizaciones/{id}:
     get:
       tags:
@@ -199,8 +199,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionOrganizaciones'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - relacion_organizaciones
@@ -223,8 +223,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionOrganizaciones'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - relacion_organizaciones
@@ -239,8 +239,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /tipo_organizacion/:
     get:
       tags:
@@ -278,8 +278,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoOrganizacion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - tipo_organizacion
@@ -295,8 +295,8 @@ paths:
       responses:
         "201":
           description: '{int} models.TipoOrganizacion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /tipo_organizacion/{id}:
     get:
       tags:
@@ -314,8 +314,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoOrganizacion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - tipo_organizacion
@@ -338,8 +338,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoOrganizacion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - tipo_organizacion
@@ -354,8 +354,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /tipo_relacion_organizaciones/:
     get:
       tags:
@@ -393,8 +393,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoRelacionOrganizaciones'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - tipo_relacion_organizaciones
@@ -410,8 +410,8 @@ paths:
       responses:
         "201":
           description: '{int} models.TipoRelacionOrganizaciones'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /tipo_relacion_organizaciones/{id}:
     get:
       tags:
@@ -429,8 +429,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoRelacionOrganizaciones'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - tipo_relacion_organizaciones
@@ -453,8 +453,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoRelacionOrganizaciones'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - tipo_relacion_organizaciones
@@ -469,8 +469,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
 definitions:
   models.Organizacion:
     title: Organizacion
@@ -479,6 +479,10 @@ definitions:
       Ente:
         type: integer
         format: int64
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
       Id:
         type: integer
         format: int64
@@ -490,6 +494,10 @@ definitions:
     title: RelacionOrganizaciones
     type: object
     properties:
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
       Id:
         type: integer
         format: int64
@@ -511,6 +519,10 @@ definitions:
         type: string
       Descripcion:
         type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
       Id:
         type: integer
         format: int64
@@ -528,6 +540,10 @@ definitions:
       CodigoAbreviacion:
         type: string
       Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
         type: string
       Id:
         type: integer
