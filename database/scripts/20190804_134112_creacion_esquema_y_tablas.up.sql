@@ -147,3 +147,7 @@ ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_or
 REFERENCES organizaciones.organizacion (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
+
+GRANT USAGE ON SCHEMA organizaciones TO desarrollooas;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA organizaciones TO desarrollooas;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA organizaciones TO desarrollooas;
