@@ -1,0 +1,12 @@
+{
+  "title": "Example Schema",
+  "type": "object",
+  "properties": {
+    "Id": { "type": "integer" },
+    "OrganizacionPadre": { "type": "integer" },
+    "OrganizacionHija": { "type": "integer" },
+    "TipoRelacionOrganizaciones":	{ "type": "TipoRelacionOrganizaciones" },
+    "FechaCreacion": { "type": "string" },
+    "FechaModificacion": { "type": "string" }
+  }
+}

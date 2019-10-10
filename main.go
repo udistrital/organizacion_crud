@@ -1,13 +1,13 @@
 package main
 
 import (
-	_ "github.com/udistrital/organizacion_crud/routers"
-	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-		"github.com/astaxie/beego/plugins/cors"
+	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
+	_ "github.com/planesticud/organizacion_crud/routers"
+	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
+	"github.com/udistrital/utils_oas/customerror"
 )
 
 func init() {
@@ -35,5 +35,7 @@ func main() {
 	}))
 
 	apistatus.Init()
+	//auditoria.InitMiddleware()
+	beego.ErrorController(&customerror.CustomErrorController{})
 	beego.Run()
 }
