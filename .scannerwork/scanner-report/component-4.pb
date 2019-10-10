@@ -1,1 +1,0 @@
-models/tipo_organizacion.go 2goX¡hrmodels/tipo_organizacion.go

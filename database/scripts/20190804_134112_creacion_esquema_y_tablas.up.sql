@@ -15,7 +15,7 @@ CREATE TABLE organizaciones.organizacion (
 	activo boolean NOT NULL,
 	fecha_creacion timestamp NOT NULL,
 	fecha_modificacion timestamp NOT NULL,
-	tipo_organizacion_id integer NOT NULL,
+	tipo_organizacion integer NOT NULL,
 	CONSTRAINT pk_organizacion PRIMARY KEY (id),
 	CONSTRAINT uq_ente_organizacion UNIQUE (ente)
 
@@ -41,15 +41,15 @@ COMMENT ON CONSTRAINT uq_ente_organizacion ON organizaciones.organizacion  IS 'R
 -- DROP TABLE IF EXISTS organizaciones.relacion_organizaciones CASCADE;
 CREATE TABLE organizaciones.relacion_organizaciones (
 	id serial NOT NULL,
-	organizacion_padre_id integer NOT NULL,
-	organizacion_hija_id integer NOT NULL,
+	organizacion_padre integer NOT NULL,
+	organizacion_hija integer NOT NULL,
 	activo boolean NOT NULL,
 	fecha_creacion timestamp NOT NULL,
 	fecha_modificacion timestamp NOT NULL,
-	tipo_relacion_organizaciones_id integer NOT NULL,
+	tipo_relacion_organizaciones integer NOT NULL,
 	CONSTRAINT pk_relacion_organizaciones PRIMARY KEY (id),
-	CONSTRAINT uq_organizacion_hija UNIQUE (organizacion_hija_id),
-	CONSTRAINT uq_organizacion_padre UNIQUE (organizacion_padre_id)
+	CONSTRAINT uq_organizacion_hija UNIQUE (organizacion_hija),
+	CONSTRAINT uq_organizacion_padre UNIQUE (organizacion_padre)
 
 );
 -- ddl-end --
@@ -122,28 +122,28 @@ COMMENT ON COLUMN organizaciones.tipo_relacion_organizaciones.fecha_modificacion
 
 -- object: fk_organizacion_tipo_organizacion | type: CONSTRAINT --
 -- ALTER TABLE organizaciones.organizacion DROP CONSTRAINT IF EXISTS fk_organizacion_tipo_organizacion CASCADE;
-ALTER TABLE organizaciones.organizacion ADD CONSTRAINT fk_organizacion_tipo_organizacion FOREIGN KEY (tipo_organizacion_id)
+ALTER TABLE organizaciones.organizacion ADD CONSTRAINT fk_organizacion_tipo_organizacion FOREIGN KEY (tipo_organizacion)
 REFERENCES organizaciones.tipo_organizacion (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: fk_relacion_organizaciones_tipo_relacion_organizaciones | type: CONSTRAINT --
 -- ALTER TABLE organizaciones.relacion_organizaciones DROP CONSTRAINT IF EXISTS fk_relacion_organizaciones_tipo_relacion_organizaciones CASCADE;
-ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_tipo_relacion_organizaciones FOREIGN KEY (tipo_relacion_organizaciones_id)
+ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_tipo_relacion_organizaciones FOREIGN KEY (tipo_relacion_organizaciones)
 REFERENCES organizaciones.tipo_relacion_organizaciones (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: fk_relacion_organizaciones_organizacion_padre | type: CONSTRAINT --
 -- ALTER TABLE organizaciones.relacion_organizaciones DROP CONSTRAINT IF EXISTS fk_relacion_organizaciones_organizacion_padre CASCADE;
-ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_organizacion_padre FOREIGN KEY (organizacion_padre_id)
+ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_organizacion_padre FOREIGN KEY (organizacion_padre)
 REFERENCES organizaciones.organizacion (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
 -- object: fk_relacion_organizaciones_organizacion_hija | type: CONSTRAINT --
 -- ALTER TABLE organizaciones.relacion_organizaciones DROP CONSTRAINT IF EXISTS fk_relacion_organizaciones_organizacion_hija CASCADE;
-ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_organizacion_hija FOREIGN KEY (organizacion_hija_id)
+ALTER TABLE organizaciones.relacion_organizaciones ADD CONSTRAINT fk_relacion_organizaciones_organizacion_hija FOREIGN KEY (organizacion_hija)
 REFERENCES organizaciones.organizacion (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --

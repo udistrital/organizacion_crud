@@ -1,1 +1,0 @@
-\ controllers/tipo_organizacion.go 2goXÆhr controllers/tipo_organizacion.go

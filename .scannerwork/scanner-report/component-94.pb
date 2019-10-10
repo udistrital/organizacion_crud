@@ -1,1 +1,0 @@
-^+controllers/tipo_relacion_organizaciones.go 2goXÆhr+controllers/tipo_relacion_organizaciones.go

@@ -1,1 +1,0 @@
-]controllers :[^_\rcontrollers
