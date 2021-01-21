@@ -1,0 +1,12 @@
+{
+  "title": "Example Schema",
+  "type": "object",
+  "properties": {
+    "Id": { "type": "integer" },
+    "Nombre": { "type": "string" },
+    "Ente": { "type": "integer" },
+    "TipoOrganizacion":	{ "type": "TipoOrganizacion" },
+    "FechaCreacion": { "type": "string" },
+    "FechaModificacion": { "type": "string" }
+  }
+}

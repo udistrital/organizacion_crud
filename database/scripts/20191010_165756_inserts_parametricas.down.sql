@@ -1,0 +1,3 @@
+delete from organizaciones.tipo_organizacion;
+delete from organizaciones.tipo_relacion_organizaciones;
+delete from organizaciones.organizacion;
