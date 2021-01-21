@@ -7,7 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"github.com/planesticud/organizacion_crud/models"
+	"github.com/udistrital/organizacion_crud/models"
 )
 
 // OrganizacionController operations for Organizacion
