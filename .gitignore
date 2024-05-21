@@ -2,3 +2,5 @@ organizacion_crud
 organizacion_crud.exe
 lastupdate.tmp
 .scannerwork/
+go.mod
+go.sum
