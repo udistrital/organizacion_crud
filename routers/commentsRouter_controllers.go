@@ -186,5 +186,4 @@ func init() {
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
-
 }
