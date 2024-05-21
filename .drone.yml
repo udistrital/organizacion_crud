@@ -4,24 +4,24 @@ workspace:
   when:
       branch:
       - develop
-      - release
+      - release/*
       - master
 
 kind: pipeline
 name: oas_api_ci
 
 steps:
-# - name: check_readme
-#   image: jjvargass/qa_develoment:latest
-#   commands:
-#   - python /app/check_readme.py
-#   when:
-#     branch:
-#     - develop
-#     - feature/*
-#     - release
-#     event:
-#     - push
+- name: check_readme
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_readme.py
+  when:
+    branch:
+    - develop
+    - feature/*
+    - release/*
+    event:
+    - push
 
 - name: check_branch
   image: jjvargass/qa_develoment:latest
@@ -31,7 +31,7 @@ steps:
     branch:
     - develop
     - feature/*
-    - release
+    - release/*
     event:
     - push
 
@@ -43,7 +43,7 @@ steps:
     branch:
     - develop
     - feature/*
-    - release
+    - release/*
     event:
     - push
 
@@ -57,8 +57,6 @@ steps:
     branch:
     - develop
     - release/*
-    - feature/*
-    - release
     - master
     event:
     - push
